@@ -1,0 +1,323 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           Int        @id @default(autoincrement())
+  email        String     @unique
+  passwordHash String
+  name         String
+  role         String     @default("admin")
+  isActive     Boolean    @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  blogPosts    BlogPost[]
+
+  @@map("admin_users")
+}
+
+model SiteSetting {
+  id           Int      @id @default(autoincrement())
+  siteName     String   @default("SECO LINE")
+  siteTagline  String?
+  contactEmail String?
+  contactPhone String?
+  address      String?
+  workingHours String?
+  socialLinks  String?  @db.Text
+  logoUrl      String?
+  faviconUrl   String?
+  footerImageUrl String?
+  footerText   String?
+  updatedAt    DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model SeoSetting {
+  id              Int      @id @default(autoincrement())
+  pageKey         String   @unique
+  metaTitle       String
+  metaDescription String?  @db.Text
+  metaKeywords    String?
+  ogImage         String?
+  canonicalUrl    String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("seo_settings")
+}
+
+model Homepage {
+  id                      Int      @id @default(autoincrement())
+  heroBadge               String?
+  heroTitle               String
+  heroTitleLine2Green     String?
+  heroSubtitle            String?  @db.Text
+  heroCtaText             String?
+  heroCtaLink             String?
+  heroSecondaryCtaText    String?
+  heroSecondaryCtaLink    String?
+  heroImageUrl            String?
+
+  aboutKicker             String?
+  aboutSnippetTitle       String?
+  aboutTitleLine2Green    String?
+  aboutSnippetContent     String?  @db.Text
+  aboutSnippetImage       String?
+  aboutSnippetLink        String?
+  aboutCtaText            String?
+
+  servicesKicker          String?
+  servicesTitleLine1      String?
+  servicesTitleLine2Green String?
+  servicesDescription     String?  @db.Text
+  servicesImageUrl        String?
+
+  processKicker           String?
+  processTitleLine1       String?
+  processTitleLine2Green  String?
+  processDescription      String?  @db.Text
+  processConsultationLink String?
+  processStepsJson        String?  @db.Text
+  processImageUrl         String?
+
+  projectsKicker          String?
+  projectsTitleLine1      String?
+  projectsTitleLine2Green String?
+  projectsDescription     String?  @db.Text
+  projectsImageUrl        String?
+
+  featuresTitle           String?
+  featuresSubtitle        String?
+  ctaTitle                String?
+  ctaSubtitle             String?
+  ctaButtonText           String?
+  ctaButtonLink           String?
+  updatedAt               DateTime @updatedAt
+
+  @@map("homepage")
+}
+
+model HomepageStat {
+  id        Int      @id @default(autoincrement())
+  label     String
+  value     String
+  prefix    String?
+  suffix    String?
+  icon      String?
+  sortOrder Int      @default(0)
+  isVisible Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("homepage_stats")
+}
+
+model AboutPage {
+  id                 Int      @id @default(autoincrement())
+  heading            String
+  subheading         String?  @db.Text
+  story              String?  @db.LongText
+  mission            String?  @db.Text
+  vision             String?  @db.Text
+  values             String?  @db.LongText
+  imageUrl           String?
+  secondaryImageUrl  String?
+  experienceYears    String?
+  statsJson          String?  @db.Text
+  updatedAt          DateTime @updatedAt
+
+  @@map("about_page")
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  excerpt     String?  @db.Text
+  content     String?  @db.LongText
+  icon        String?
+  imageUrl    String?
+  features    String?  @db.Text
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("services")
+}
+
+model Project {
+  id          Int            @id @default(autoincrement())
+  title       String
+  slug        String         @unique
+  client      String?
+  category    String?
+  excerpt     String?        @db.Text
+  content     String?        @db.LongText
+  coverImage  String?
+  completedAt DateTime?
+  projectUrl  String?
+  isFeatured  Boolean        @default(false)
+  isPublished Boolean        @default(true)
+  sortOrder   Int            @default(0)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  images      ProjectImage[]
+
+  @@map("projects")
+}
+
+model ProjectImage {
+  id        Int      @id @default(autoincrement())
+  projectId Int
+  mediaUrl  String
+  caption   String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@map("project_images")
+}
+
+model GalleryCategory {
+  id        Int           @id @default(autoincrement())
+  name      String
+  slug      String        @unique
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+  items     GalleryItem[]
+
+  @@map("gallery_categories")
+}
+
+model GalleryItem {
+  id          Int              @id @default(autoincrement())
+  title       String
+  mediaUrl    String
+  categoryId  Int?
+  description String?          @db.Text
+  sortOrder   Int              @default(0)
+  isPublished Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  category    GalleryCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([categoryId])
+  @@map("gallery")
+}
+
+model Testimonial {
+  id             Int      @id @default(autoincrement())
+  authorName     String
+  authorRole     String?
+  company        String?
+  content        String   @db.Text
+  rating         Int      @default(5)
+  avatarUrl      String?
+  companyLogoUrl String?
+  sortOrder      Int      @default(0)
+  isPublished    Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("testimonials")
+}
+
+model BlogCategory {
+  id          Int        @id @default(autoincrement())
+  name        String
+  slug        String     @unique
+  description String?    @db.Text
+  createdAt   DateTime   @default(now())
+  posts       BlogPost[]
+
+  @@map("blog_categories")
+}
+
+model BlogTag {
+  id        Int           @id @default(autoincrement())
+  name      String
+  slug      String        @unique
+  createdAt DateTime      @default(now())
+  posts     BlogPostTag[]
+
+  @@map("blog_tags")
+}
+
+model BlogPost {
+  id          Int           @id @default(autoincrement())
+  title       String
+  slug        String        @unique
+  excerpt     String?       @db.Text
+  content     String        @db.LongText
+  coverImage  String?
+  authorId    Int?
+  categoryId  Int?
+  isPublished Boolean       @default(false)
+  publishedAt DateTime?
+  views       Int           @default(0)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  author      AdminUser?    @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  category    BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  tags        BlogPostTag[]
+
+  @@index([authorId])
+  @@index([categoryId])
+  @@index([slug])
+  @@index([isPublished])
+  @@map("blog_posts")
+}
+
+model BlogPostTag {
+  id     Int      @id @default(autoincrement())
+  postId Int
+  tagId  Int
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tag    BlogTag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, tagId])
+  @@index([postId])
+  @@index([tagId])
+  @@map("blog_post_tags")
+}
+
+model ContactSubmission {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("contact_submissions")
+}
+
+model MediaFile {
+  id           Int      @id @default(autoincrement())
+  originalName String
+  fileName     String   @unique
+  filePath     String
+  fileUrl      String
+  mimeType     String
+  fileSize     Int
+  altText      String?
+  createdAt    DateTime @default(now())
+
+  @@index([mimeType])
+  @@index([createdAt])
+  @@map("media_files")
+}
