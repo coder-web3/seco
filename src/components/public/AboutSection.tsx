@@ -203,13 +203,16 @@ export default function AboutSection({
             inView ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95'
           }`}>
             
-            <div className="relative w-full max-w-3xl flex items-center justify-center">
+            <div className="relative w-full max-w-3xl flex items-center justify-center overflow-hidden">
               
-              {/* User's Uploaded Custom PNG / Image Artwork */}
+              {/* Left Opacity Soft Gradient Fade Overlay to eliminate harsh white line */}
+              <div className="absolute left-0 inset-y-0 w-16 sm:w-28 bg-gradient-to-r from-[#F8FAFD] via-[#F8FAFD]/70 to-transparent z-10 pointer-events-none" />
+
+              {/* User's Uploaded Custom PNG / Image Artwork with Smooth Left Mask Fade */}
               <img 
                 src={imageUrl} 
                 alt="About SECO LINE" 
-                className="w-full h-auto object-contain transition-transform duration-500 hover:scale-[1.01]"
+                className="w-full h-auto object-contain transition-transform duration-500 hover:scale-[1.01] [mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_12%,black_100%)]"
               />
 
               {/* Floating Glassmorphism Badge (25+ Years of Building Progress) */}

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight, Search, PhoneCall, Mail, MapPin, Clock, Phone, Linkedin, Instagram, Twitter } from 'lucide-react';
+import { Menu, X, ArrowRight, PhoneCall, Mail, MapPin, Clock, Phone, Linkedin, Instagram, Twitter } from 'lucide-react';
 
 interface NavbarProps {
   siteName?: string;
@@ -18,9 +18,8 @@ interface NavbarProps {
 const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about' },
-  { label: 'Services', href: '/services' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Why Us', href: '/#why-us' },
+  { label: 'Trading Services', href: '/trading-services' },
+  { label: 'Contracting Services', href: '/contracting-services' },
   { label: 'Contact', href: '/contact' },
 ];
 
@@ -34,8 +33,6 @@ export default function Navbar({
   socialLinks,
 }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [logoSrc, setLogoSrc] = useState<string | null>(logoUrl || '/assets/images/logo.png');
   const pathname = usePathname();
@@ -64,42 +61,42 @@ export default function Navbar({
     <header className="sticky top-0 z-50 font-sans">
       
       {/* Top Bar: Contact Info & Socials */}
-      <div className="relative bg-gradient-to-r from-[#050B14] via-[#091526] to-[#050B14] text-slate-300 border-b border-slate-800/80 py-2.5 px-4 sm:px-8 text-xs font-sans">
+      <div className="relative bg-gradient-to-r from-[#050B14] via-[#091526] to-[#050B14] text-slate-300 border-b border-slate-800/80 py-2 sm:py-2.5 px-3 sm:px-8 text-xs font-sans">
         {/* Subtle Green Laser Accent Line on Bottom of Top Bar */}
         <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#15B83E]/70 to-transparent pointer-events-none" />
         
-        <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 relative z-10">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-start sm:justify-between gap-2.5 sm:gap-4 overflow-x-auto whitespace-nowrap [::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] relative z-10 py-0.5">
           
           {/* Left: Email & Address Pill Badges */}
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-3.5 font-medium">
-            <a href={`mailto:${emailDisplay}`} className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#15B83E]/60 px-3.5 py-1 rounded-full backdrop-blur-md transition-all duration-300 hover:text-white">
+          <div className="flex items-center gap-2.5 sm:gap-3.5 font-medium flex-shrink-0">
+            <a href={`mailto:${emailDisplay}`} className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#15B83E]/60 px-3.5 py-1 rounded-full backdrop-blur-md transition-all duration-300 hover:text-white flex-shrink-0">
               <Mail className="w-3.5 h-3.5 text-[#15B83E]" />
               <span>{emailDisplay}</span>
             </a>
 
-            <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-3.5 py-1 rounded-full backdrop-blur-md">
+            <div className="flex items-center gap-2 bg-white/5 border border-white/10 px-3.5 py-1 rounded-full backdrop-blur-md flex-shrink-0">
               <MapPin className="w-3.5 h-3.5 text-[#15B83E]" />
               <span>{addressDisplay}</span>
             </div>
           </div>
 
           {/* Right: Phone & Social Media Glass Badges */}
-          <div className="flex items-center gap-3 sm:gap-4 font-medium">
-            <a href={`tel:${phoneDisplay.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-2 bg-[#15B83E]/10 hover:bg-[#15B83E]/20 border border-[#15B83E]/40 px-3.5 py-1 rounded-full text-[#15B83E] hover:text-white transition-all duration-300 font-mono font-bold">
+          <div className="flex items-center gap-2.5 sm:gap-4 font-medium flex-shrink-0">
+            <a href={`tel:${phoneDisplay.replace(/[^0-9+]/g, '')}`} className="flex items-center gap-2 bg-[#15B83E]/10 hover:bg-[#15B83E]/20 border border-[#15B83E]/40 px-3.5 py-1 rounded-full text-[#15B83E] hover:text-white transition-all duration-300 font-mono font-bold flex-shrink-0">
               <Phone className="w-3.5 h-3.5" />
               <span>{phoneDisplay}</span>
             </a>
 
-            <div className="w-px h-3.5 bg-slate-800" />
+            <div className="w-px h-3.5 bg-slate-800 flex-shrink-0" />
 
-            <div className="flex items-center gap-2">
-              <a href={socials.linkedin || '#'} target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#15B83E] hover:text-[#15B83E] text-slate-400 flex items-center justify-center transition-all duration-300 shadow-sm" aria-label="LinkedIn">
+            <div className="flex items-center gap-2 flex-shrink-0">
+              <a href={socials.linkedin || '#'} target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#15B83E] hover:text-[#15B83E] text-slate-400 flex items-center justify-center transition-all duration-300 shadow-sm flex-shrink-0" aria-label="LinkedIn">
                 <Linkedin className="w-3.5 h-3.5" />
               </a>
-              <a href={socials.instagram || '#'} target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#15B83E] hover:text-[#15B83E] text-slate-400 flex items-center justify-center transition-all duration-300 shadow-sm" aria-label="Instagram">
+              <a href={socials.instagram || '#'} target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#15B83E] hover:text-[#15B83E] text-slate-400 flex items-center justify-center transition-all duration-300 shadow-sm flex-shrink-0" aria-label="Instagram">
                 <Instagram className="w-3.5 h-3.5" />
               </a>
-              <a href={socials.twitter || '#'} target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#15B83E] hover:text-[#15B83E] text-slate-400 flex items-center justify-center transition-all duration-300 shadow-sm" aria-label="X Twitter">
+              <a href={socials.twitter || '#'} target="_blank" rel="noreferrer" className="w-7 h-7 rounded-full bg-white/5 border border-white/10 hover:border-[#15B83E] hover:text-[#15B83E] text-slate-400 flex items-center justify-center transition-all duration-300 shadow-sm flex-shrink-0" aria-label="X Twitter">
                 <Twitter className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -194,17 +191,8 @@ export default function Navbar({
           })}
         </nav>
 
-        {/* Right Section: Interactive Search, Phone & CTA */}
+        {/* Right Section: Phone & CTA */}
         <div className="hidden md:flex items-center gap-2 sm:gap-2.5">
-          {/* Animated Search Button */}
-          <button
-            onClick={() => setSearchOpen(!searchOpen)}
-            className="w-10 h-10 rounded-full bg-slate-100/90 hover:bg-emerald-50 text-slate-700 hover:text-[#00A843] flex items-center justify-center transition-all duration-200 active:scale-95 focus:outline-none border border-slate-200/50"
-            aria-label="Search"
-          >
-            <Search className="w-4 h-4 transition-transform duration-200 hover:scale-110" />
-          </button>
-
           {/* Right Dark Blue Curved Banner */}
           <div className="relative overflow-hidden bg-gradient-to-r from-[#07192C] via-[#0D2B4A] to-[#123A63] text-white rounded-full p-1.5 pl-4 flex items-center gap-3 sm:gap-4 shadow-md shadow-slate-900/10">
             {/* Phone Call Button */}
@@ -239,13 +227,14 @@ export default function Navbar({
 
         {/* Mobile Actions & Menu Toggle */}
         <div className="flex lg:hidden items-center gap-2">
-          <button
-            onClick={() => setSearchOpen(!searchOpen)}
-            className="w-9 h-9 rounded-full bg-slate-100 text-slate-700 flex items-center justify-center"
-            aria-label="Search"
+          <a
+            href={`tel:${phoneDisplay.replace(/[^0-9+]/g, '')}`}
+            className="w-9 h-9 rounded-full bg-[#0052CC] hover:bg-blue-700 text-white flex items-center justify-center shadow-md active:scale-95 transition"
+            aria-label="Call Us"
+            title={`Call ${phoneDisplay}`}
           >
-            <Search className="w-4 h-4" />
-          </button>
+            <PhoneCall className="w-4 h-4" />
+          </a>
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -257,27 +246,6 @@ export default function Navbar({
         </div>
       </div>
     </div>
-
-      {/* Floating Search Bar Input */}
-      {searchOpen && (
-        <div className="max-w-2xl mx-auto mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200 p-3 flex items-center gap-3 animate-in fade-in slide-in-from-top-3 duration-200">
-          <Search className="w-5 h-5 text-emerald-600 ml-2" />
-          <input
-            type="text"
-            placeholder="Search services, portfolio projects..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-1 text-sm bg-transparent border-none focus:outline-none text-slate-800 placeholder-slate-400 font-medium"
-            autoFocus
-          />
-          <button
-            onClick={() => setSearchOpen(false)}
-            className="p-1 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-100 transition"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
 
       {/* Mobile Drawer */}
       {mobileOpen && (

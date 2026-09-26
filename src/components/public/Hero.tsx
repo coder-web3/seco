@@ -13,6 +13,8 @@ interface HeroProps {
   primaryCtaLink?: string;
   videoUrl?: string;
   bgImageUrl?: string;
+  personImageUrl?: string;
+  personHoverImageUrl?: string;
 }
 
 export default function Hero({
@@ -24,6 +26,8 @@ export default function Hero({
   primaryCtaLink = '/contact',
   videoUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1',
   bgImageUrl,
+  personImageUrl = '/uploads/hero_engineer_3d.png',
+  personHoverImageUrl = '/uploads/hero_engineer_hover_3d.png',
 }: HeroProps) {
   const [videoOpen, setVideoOpen] = useState(false);
   const [inView, setInView] = useState(true);
@@ -129,16 +133,29 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Right Concrete Wall Architectural Engraving Overlay (Desktop Only) */}
-      <div className={`absolute right-6 lg:left-auto lg:right-12 top-1/2 -translate-y-1/2 hidden lg:flex items-center gap-4 pointer-events-none select-none z-10 transition-all duration-1000 delay-300 ${
+      {/* Right 3D Person Image & Interactive Hover Pose Transformation */}
+      <div className={`absolute right-2 sm:right-6 lg:right-10 xl:right-14 bottom-0 top-auto hidden md:flex items-center select-none z-20 transition-all duration-1000 delay-300 ${
         inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
       }`}>
-        <div className="text-[11px] lg:text-xs font-black tracking-[0.22em] text-white/80 uppercase leading-relaxed text-right font-mono">
-          <div>SAUDI ARABIA</div>
-          <div className="text-[#15B83E]">STRONGER</div>
-          <div>TOGETHER</div>
+        {/* Interactive 3D Engineer Container */}
+        <div className="group relative w-[160px] sm:w-[190px] md:w-[220px] lg:w-[260px] xl:w-[290px] max-h-[75vh] flex items-end drop-shadow-[0_20px_40px_rgba(0,0,0,0.9)] cursor-pointer">
+          {/* Default Pose: Standing holding tablet */}
+          <img
+            src={personImageUrl || '/uploads/hero_engineer_3d.png'}
+            alt="SECO LINE 3D Engineer"
+            className="w-full h-auto object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.9)] group-hover:opacity-0 transition-all duration-700 ease-out transform group-hover:scale-105"
+          />
+
+          {/* Hover Pose: Turned inspecting blueprints & pointing at project */}
+          <img
+            src={personHoverImageUrl || '/uploads/hero_engineer_hover_3d.png'}
+            alt="SECO LINE 3D Engineer Inspecting Project"
+            className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_0_35px_rgba(21,184,62,0.5)] opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out transform scale-95 group-hover:scale-105"
+          />
+
+          {/* Ambient Backlight Glow behind 3D Person */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#15B83E]/30 via-emerald-500/15 to-transparent rounded-2xl blur-xl -z-10 group-hover:blur-2xl transition-all duration-700" />
         </div>
-        <div className="w-1 h-20 bg-[#15B83E] rounded-full shadow-[0_0_12px_rgba(21,184,62,0.6)]" />
       </div>
 
       {/* Main Hero Center Content */}
@@ -185,26 +202,6 @@ export default function Hero({
               <span className="ml-1.5 inline-block w-[3.5px] h-[0.85em] bg-[#15B83E] rounded-full shadow-[0_0_10px_#15B83E] animate-pulse align-middle" />
             </span>
           </h1>
-
-          {/* Dynamic Phrase Carousel Stepper Dots */}
-          <div className="flex items-center justify-center gap-1.5 pt-1">
-            {dynamicPhrases.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => {
-                  setPhraseIndex(idx);
-                  setDisplayText('');
-                  setIsDeleting(false);
-                }}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === phraseIndex 
-                    ? 'w-7 bg-[#15B83E] shadow-[0_0_8px_#15B83E]' 
-                    : 'w-1.5 bg-slate-700 hover:bg-slate-500'
-                }`}
-                aria-label={`Jump to title phrase ${idx + 1}`}
-              />
-            ))}
-          </div>
         </div>
 
         {/* Subtitle Paragraph with Differential Scroll Parallax */}
@@ -254,27 +251,27 @@ export default function Hero({
       </div>
 
       {/* Architectural Bottom Bar */}
-      <div className={`relative z-10 bg-[#070E18]/85 backdrop-blur-md border-t border-slate-800/80 py-4 px-6 sm:px-12 transition-all duration-700 delay-600 ${
+      <div className={`relative z-30 bg-[#070E18]/90 backdrop-blur-md border-t border-slate-800/80 py-4 px-6 sm:px-12 transition-all duration-700 delay-600 ${
         inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}>
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold text-slate-300 font-heading">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-semibold text-slate-200 font-heading">
           <div className="flex items-center gap-2">
-            <HardHat className="w-4 h-4 text-[#15B83E]" />
+            <HardHat className="w-4 h-4 text-[#15B83E] shrink-0" />
             <span>Strict Safety Standards</span>
           </div>
 
           <div className="hidden sm:block w-px h-4 bg-slate-800" />
 
           <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-[#15B83E]" />
+            <ShieldCheck className="w-4 h-4 text-[#15B83E] shrink-0" />
             <span>Highest Quality Contracting</span>
           </div>
 
           <div className="hidden sm:block w-px h-4 bg-slate-800" />
 
           <div className="flex items-center gap-2">
-            <Leaf className="w-4 h-4 text-[#15B83E]" />
-            <span>Sustainable Construction Solutions</span>
+            <Leaf className="w-4 h-4 text-[#15B83E] shrink-0" />
+            <span className="text-white font-bold drop-shadow-sm">Sustainable Construction Solutions</span>
           </div>
         </div>
       </div>

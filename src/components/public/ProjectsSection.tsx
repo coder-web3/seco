@@ -4,14 +4,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { 
   ArrowRight, 
-  ChevronLeft, 
-  ChevronRight, 
   Layers, 
   MapPin, 
   ShieldCheck 
 } from 'lucide-react';
 
-export interface ProjectItem {
+export interface IndustryItem {
   id: string | number;
   number?: string;
   title: string;
@@ -20,42 +18,40 @@ export interface ProjectItem {
   linkUrl?: string;
 }
 
-const defaultProjects: ProjectItem[] = [
+const defaultIndustries: IndustryItem[] = [
   {
     id: '1',
     number: '01',
-    title: 'Al Narjis Villas',
-    category: 'Residential',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-    linkUrl: '/projects/al-narjis-villas',
+    title: 'Oil & Gas Piping & Energy',
+    category: 'Oil & Gas',
+    imageUrl: 'https://images.unsplash.com/photo-1541888946425-d0fbb186a5b3?auto=format&fit=crop&w=1200&q=80',
+    linkUrl: '/trading-services',
   },
   {
     id: '2',
     number: '02',
-    title: 'Riyadh Business Park',
-    category: 'Commercial',
+    title: 'Civil Construction & Infrastructure',
+    category: 'Civil & Structural',
     imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80',
-    linkUrl: '/projects/riyadh-business-park',
+    linkUrl: '/contracting-services',
   },
   {
     id: '3',
     number: '03',
-    title: 'Industrial Facility',
+    title: 'Petrochemical & Industrial Facilities',
     category: 'Industrial',
     imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80',
-    linkUrl: '/projects/industrial-facility',
+    linkUrl: '/services',
   },
   {
     id: '4',
     number: '04',
-    title: 'King Abdullah Road Upgrade',
-    category: 'Infrastructure',
-    imageUrl: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1000&q=80',
-    linkUrl: '/projects/king-abdullah-road',
+    title: 'Heavy Machinery & Material Supply',
+    category: 'Equipment & Logistics',
+    imageUrl: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1000&q=80',
+    linkUrl: '/trading-services',
   },
 ];
-
-const categories = ['All Projects', 'Residential', 'Commercial', 'Industrial', 'Infrastructure'] as const;
 
 interface ProjectsSectionProps {
   kicker?: string;
@@ -63,20 +59,21 @@ interface ProjectsSectionProps {
   titleLine2Green?: string;
   description?: string;
   viewAllLink?: string;
+  viewAllText?: string;
   bgImageUrl?: string;
-  projects?: ProjectItem[];
+  projects?: IndustryItem[];
 }
 
 export default function ProjectsSection({
-  kicker = 'FEATURED PROJECTS',
-  titleLine1 = 'Supporting Projects',
-  titleLine2Green = 'Across Industries',
-  description = 'From landmark developments to essential infrastructure, SECO LINE delivers spaces that inspire growth and strengthen communities across Saudi Arabia.',
-  viewAllLink = '/projects',
+  kicker = 'OUR INDUSTRIES',
+  titleLine1 = 'Powering Key Industries',
+  titleLine2Green = 'Across Saudi Arabia',
+  description = 'We deliver integrated solutions tailored to the unique needs of diverse industries, helping our clients build, operate and grow toward a more sustainable future.',
+  viewAllLink = '/contact',
+  viewAllText = 'Get In Touch',
   bgImageUrl = '/assets/images/about-secoline.jpg',
   projects,
 }: ProjectsSectionProps = {}) {
-  const [activeCategory, setActiveCategory] = useState<string>('All Projects');
   const [inView, setInView] = useState(true);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -98,11 +95,7 @@ export default function ProjectsSection({
     return () => observer.disconnect();
   }, []);
 
-  const activeProjectsList = projects && projects.length > 0 ? projects : defaultProjects;
-
-  const filteredProjects = activeCategory === 'All Projects'
-    ? activeProjectsList
-    : activeProjectsList.filter(p => (p.category || '').toLowerCase() === activeCategory.toLowerCase());
+  const activeIndustriesList = projects && projects.length > 0 ? projects : defaultIndustries;
 
   return (
     <section ref={sectionRef} className="relative py-10 sm:py-14 bg-[#F8FAFD] overflow-hidden border-b border-slate-200/80">
@@ -127,7 +120,7 @@ export default function ProjectsSection({
         {/* Top Split Layout: Left Architectural Chamfer Overlay & Main Section Block */}
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-stretch">
           
-          {/* Left Column Architectural Facade Overlay (Matches Reference Image 2 Left Frame) */}
+          {/* Left Column Architectural Facade Overlay */}
           <div className="hidden xl:flex xl:col-span-2 relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200/80 group flex-col justify-between p-6">
             <div 
               className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
@@ -138,7 +131,7 @@ export default function ProjectsSection({
             {/* Top Tag */}
             <div className="relative z-10 font-mono text-[10px] font-bold tracking-[0.22em] text-white/90 uppercase leading-snug">
               <div>SECO LINE</div>
-              <div className="text-emerald-400">PORTFOLIO</div>
+              <div className="text-emerald-400">INDUSTRIES</div>
             </div>
 
             {/* Vertical Accent Typography */}
@@ -160,7 +153,7 @@ export default function ProjectsSection({
           </div>
 
           {/* Right Main Section Content Block */}
-          <div className="xl:col-span-10 space-y-10 sm:space-y-12">
+          <div className="xl:col-span-10 space-y-8">
             
             {/* Header Split Row */}
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
@@ -211,52 +204,17 @@ export default function ProjectsSection({
                   href={viewAllLink}
                   className="bg-[#008738] hover:bg-[#00702e] text-white font-bold text-sm px-8 py-3.5 rounded-full shadow-lg shadow-emerald-700/20 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2 group"
                 >
-                  <span>View All Projects</span>
+                  <span>{viewAllText}</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
 
             </div>
 
-            {/* Filter Categories Bar & Navigation Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200/80 pb-6">
+            {/* Asymmetric Bento Cards Grid (No filter tabs, no arrow buttons on cards) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch pt-4">
               
-              {/* Category Filter Tabs */}
-              <div className="flex flex-wrap items-center gap-3">
-                {categories.map((cat) => {
-                  const isActive = activeCategory === cat;
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => setActiveCategory(cat)}
-                      className={`transition-all duration-300 font-semibold text-xs sm:text-sm ${
-                        isActive
-                          ? 'bg-[#0D2137] text-white px-5 py-2.5 rounded-full shadow-md shadow-slate-900/10 scale-105'
-                          : 'text-slate-500 hover:text-[#0D2137] px-3 py-1.5'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Carousel Arrows */}
-              <div className="flex items-center gap-3">
-                <button className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-[#008738] hover:border-[#008738] hover:shadow-md transition-all">
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button className="w-10 h-10 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-600 hover:text-[#008738] hover:border-[#008738] hover:shadow-md transition-all">
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
-
-            </div>
-
-            {/* Asymmetric Bento Cards Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-              
-              {/* Column 1: Card 01 (Al Narjis Villas) */}
+              {/* Column 1: Card 01 (Oil & Gas) */}
               <div 
                 className={`lg:col-span-5 relative group rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 aspect-[4/3] lg:aspect-auto min-h-[360px] lg:min-h-[460px] transition-all duration-700 ${
                   inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -264,7 +222,7 @@ export default function ProjectsSection({
               >
                 <div 
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url('${filteredProjects[0]?.imageUrl || defaultProjects[0].imageUrl}')` }}
+                  style={{ backgroundImage: `url('${activeIndustriesList[0]?.imageUrl || defaultIndustries[0].imageUrl}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
 
@@ -273,28 +231,21 @@ export default function ProjectsSection({
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-mono font-bold text-emerald-400">
-                        {filteredProjects[0]?.number || '01'}
+                        {activeIndustriesList[0]?.number || '01'}
                       </span>
                       <div className="w-4 h-0.5 bg-emerald-400" />
                       <span className="text-[11px] font-medium text-slate-300 font-mono">
-                        {filteredProjects[0]?.category || 'Residential'}
+                        {activeIndustriesList[0]?.category || 'Oil & Gas'}
                       </span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold text-white font-heading group-hover:text-emerald-300 transition-colors">
-                      {filteredProjects[0]?.title || 'Al Narjis Villas'}
+                      {activeIndustriesList[0]?.title || 'Oil & Gas Piping & Energy'}
                     </h3>
                   </div>
-
-                  <Link
-                    href={filteredProjects[0]?.linkUrl || '#'}
-                    className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white hover:bg-[#008738] hover:border-[#008738] transition-all duration-300 group-hover:scale-110 shadow-lg"
-                  >
-                    <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Link>
                 </div>
               </div>
 
-              {/* Column 2: Card 02 (Riyadh Business Park) */}
+              {/* Column 2: Card 02 (Civil Construction) */}
               <div 
                 className={`lg:col-span-4 relative group rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 aspect-[4/3] lg:aspect-auto min-h-[360px] lg:min-h-[460px] transition-all duration-700 delay-150 ${
                   inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -302,7 +253,7 @@ export default function ProjectsSection({
               >
                 <div 
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
-                  style={{ backgroundImage: `url('${filteredProjects[1]?.imageUrl || defaultProjects[1].imageUrl}')` }}
+                  style={{ backgroundImage: `url('${activeIndustriesList[1]?.imageUrl || defaultIndustries[1].imageUrl}')` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
 
@@ -310,31 +261,24 @@ export default function ProjectsSection({
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-mono font-bold text-emerald-400">
-                        {filteredProjects[1]?.number || '02'}
+                        {activeIndustriesList[1]?.number || '02'}
                       </span>
                       <div className="w-4 h-0.5 bg-emerald-400" />
                       <span className="text-[11px] font-medium text-slate-300 font-mono">
-                        {filteredProjects[1]?.category || 'Commercial'}
+                        {activeIndustriesList[1]?.category || 'Civil & Structural'}
                       </span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold text-white font-heading group-hover:text-emerald-300 transition-colors">
-                      {filteredProjects[1]?.title || 'Riyadh Business Park'}
+                      {activeIndustriesList[1]?.title || 'Civil Construction & Infrastructure'}
                     </h3>
                   </div>
-
-                  <Link
-                    href={filteredProjects[1]?.linkUrl || '#'}
-                    className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white hover:bg-[#008738] hover:border-[#008738] transition-all duration-300 group-hover:scale-110 shadow-lg"
-                  >
-                    <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </Link>
                 </div>
               </div>
 
               {/* Column 3: Stacked Cards 03 & 04 */}
               <div className="lg:col-span-3 flex flex-col gap-6 justify-between">
                 
-                {/* Card 03 (Industrial Facility) */}
+                {/* Card 03 (Petrochemical) */}
                 <div 
                   className={`relative group rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 h-full min-h-[210px] transition-all duration-700 delay-300 ${
                     inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -342,7 +286,7 @@ export default function ProjectsSection({
                 >
                   <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url('${filteredProjects[2]?.imageUrl || defaultProjects[2].imageUrl}')` }}
+                    style={{ backgroundImage: `url('${activeIndustriesList[2]?.imageUrl || defaultIndustries[2].imageUrl}')` }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
 
@@ -350,28 +294,21 @@ export default function ProjectsSection({
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-mono font-bold text-emerald-400">
-                          {filteredProjects[2]?.number || '03'}
+                          {activeIndustriesList[2]?.number || '03'}
                         </span>
                         <div className="w-3 h-0.5 bg-emerald-400" />
                         <span className="text-[10px] font-medium text-slate-300 font-mono">
-                          {filteredProjects[2]?.category || 'Industrial'}
+                          {activeIndustriesList[2]?.category || 'Industrial'}
                         </span>
                       </div>
                       <h4 className="text-base font-bold text-white font-heading group-hover:text-emerald-300 transition-colors">
-                        {filteredProjects[2]?.title || 'Industrial Facility'}
+                        {activeIndustriesList[2]?.title || 'Petrochemical & Industrial Facilities'}
                       </h4>
                     </div>
-
-                    <Link
-                      href={filteredProjects[2]?.linkUrl || '#'}
-                      className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white hover:bg-[#008738] hover:border-[#008738] transition-all duration-300 group-hover:scale-110 shadow-md"
-                    >
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                    </Link>
                   </div>
                 </div>
 
-                {/* Card 04 (King Abdullah Road Upgrade) */}
+                {/* Card 04 (Heavy Machinery) */}
                 <div 
                   className={`relative group rounded-3xl overflow-hidden shadow-lg border border-slate-200/80 h-full min-h-[210px] transition-all duration-700 delay-450 ${
                     inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
@@ -379,7 +316,7 @@ export default function ProjectsSection({
                 >
                   <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url('${filteredProjects[3]?.imageUrl || defaultProjects[3].imageUrl}')` }}
+                    style={{ backgroundImage: `url('${activeIndustriesList[3]?.imageUrl || defaultIndustries[3].imageUrl}')` }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-95" />
 
@@ -387,24 +324,17 @@ export default function ProjectsSection({
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
                         <span className="text-xs font-mono font-bold text-emerald-400">
-                          {filteredProjects[3]?.number || '04'}
+                          {activeIndustriesList[3]?.number || '04'}
                         </span>
                         <div className="w-3 h-0.5 bg-emerald-400" />
                         <span className="text-[10px] font-medium text-slate-300 font-mono">
-                          {filteredProjects[3]?.category || 'Infrastructure'}
+                          {activeIndustriesList[3]?.category || 'Equipment & Logistics'}
                         </span>
                       </div>
                       <h4 className="text-base font-bold text-white font-heading group-hover:text-emerald-300 transition-colors">
-                        {filteredProjects[3]?.title || 'King Abdullah Road Upgrade'}
+                        {activeIndustriesList[3]?.title || 'Heavy Machinery & Material Supply'}
                       </h4>
                     </div>
-
-                    <Link
-                      href={filteredProjects[3]?.linkUrl || '#'}
-                      className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white hover:bg-[#008738] hover:border-[#008738] transition-all duration-300 group-hover:scale-110 shadow-md"
-                    >
-                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                    </Link>
                   </div>
                 </div>
 
@@ -416,7 +346,7 @@ export default function ProjectsSection({
 
         </div>
 
-        {/* Bottom Feature Highlights Horizontal Row (Matches Reference Image 2 Bottom Bar) */}
+        {/* Bottom Feature Highlights Horizontal Row */}
         <div className="bg-white rounded-3xl border border-slate-200/80 shadow-[0_10px_35px_rgba(0,0,0,0.04)] p-5 sm:p-6 flex flex-col lg:flex-row items-center justify-between gap-6">
           
           {/* Left Tag */}

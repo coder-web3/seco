@@ -81,7 +81,7 @@ export default function ServicesSection({
   titleLine2Green = 'Solutions for a Brighter Tomorrow',
   description = 'From concept to completion, SECO LINE delivers integrated construction and contracting services that create lasting value for people, businesses and communities across Saudi Arabia.',
   services = defaultServices,
-  allServicesLink = '/services',
+  allServicesLink = '/contracting-services',
   bannerImageUrl = '/assets/images/about-secoline.jpg',
 }: ServicesSectionProps) {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -269,7 +269,7 @@ export default function ServicesSection({
 
                     {/* Learn More Link */}
                     <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-xs font-bold text-[#008738] group-hover:gap-2.5 transition-all">
-                      <Link href={`/services/${item.slug}`} className="flex items-center gap-1.5">
+                      <Link href={`/contracting-services/${item.slug}`} className="flex items-center gap-1.5">
                         <span>Learn More</span>
                         <ArrowRight className="w-4 h-4" />
                       </Link>

@@ -64,13 +64,15 @@ model Homepage {
   heroCtaLink             String?
   heroSecondaryCtaText    String?
   heroSecondaryCtaLink    String?
-  heroImageUrl            String?
+  heroImageUrl            String?  @db.Text
+  personImageUrl          String?  @db.Text
+  personHoverImageUrl     String?  @db.Text
 
   aboutKicker             String?
   aboutSnippetTitle       String?
   aboutTitleLine2Green    String?
   aboutSnippetContent     String?  @db.Text
-  aboutSnippetImage       String?
+  aboutSnippetImage       String?  @db.Text
   aboutSnippetLink        String?
   aboutCtaText            String?
 
@@ -78,7 +80,7 @@ model Homepage {
   servicesTitleLine1      String?
   servicesTitleLine2Green String?
   servicesDescription     String?  @db.Text
-  servicesImageUrl        String?
+  servicesImageUrl        String?  @db.Text
 
   processKicker           String?
   processTitleLine1       String?
@@ -86,18 +88,18 @@ model Homepage {
   processDescription      String?  @db.Text
   processConsultationLink String?
   processStepsJson        String?  @db.Text
-  processImageUrl         String?
+  processImageUrl         String?  @db.Text
 
   projectsKicker          String?
   projectsTitleLine1      String?
   projectsTitleLine2Green String?
   projectsDescription     String?  @db.Text
-  projectsImageUrl        String?
+  projectsImageUrl        String?  @db.Text
 
   featuresTitle           String?
-  featuresSubtitle        String?
-  ctaTitle                String?
-  ctaSubtitle             String?
+  featuresSubtitle        String?  @db.LongText
+  ctaTitle                String?  @db.Text
+  ctaSubtitle             String?  @db.Text
   ctaButtonText           String?
   ctaButtonLink           String?
   updatedAt               DateTime @updatedAt
@@ -132,6 +134,56 @@ model AboutPage {
   secondaryImageUrl  String?
   experienceYears    String?
   statsJson          String?  @db.Text
+
+  // Section 1: Hero
+  heroKicker          String?
+  heroTitleLine1      String?
+  heroTitleLine2Green String?
+  heroSubtitle        String?  @db.Text
+  heroBgImageUrl      String?
+  heroVideoUrl        String?
+  heroBadge1Value     String?
+  heroBadge1Label     String?
+  heroBadge2Value     String?
+  heroBadge2Label     String?
+  heroBadge3Value     String?
+  heroBadge3Label     String?
+
+  // Section 2: Vision, Mission & Values
+  vmvKicker           String?
+  vmvTitleLine1       String?
+  vmvTitleLine2Green  String?
+  vmvDescription      String?  @db.Text
+  vmvSkylineImageUrl  String?
+  vmvBadgeText        String?
+  vmvVisionTitle      String?
+  vmvVisionDesc       String?  @db.Text
+  vmvMissionTitle     String?
+  vmvMissionDesc      String?  @db.Text
+  vmvValuesJson       String?  @db.LongText
+
+  // Section 3: Our Strengths
+  strengthsKicker          String?
+  strengthsTitleLine1      String?
+  strengthsTitleLine2Green String?
+  strengthsDescription     String?  @db.Text
+  strengthsTagline         String?
+  strengthsImageUrl        String?
+  strengthsBadgeText       String?
+  strengthsJson            String?  @db.LongText
+
+  // Section 4: Partner CTA Banner
+  ctaKicker           String?
+  ctaTitleLine1       String?
+  ctaTitleLine2Green  String?
+  ctaButtonText       String?
+  ctaButtonLink       String?
+  ctaValue1           String?
+  ctaValue2           String?
+  ctaValue3           String?
+  ctaImageUrl         String?
+  ctaOverlayText      String?
+
   updatedAt          DateTime @updatedAt
 
   @@map("about_page")
@@ -150,6 +202,8 @@ model Service {
   isPublished Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+
+  detailSetting ServiceDetailSetting?
 
   @@map("services")
 }
@@ -320,4 +374,231 @@ model MediaFile {
   @@index([mimeType])
   @@index([createdAt])
   @@map("media_files")
+}
+
+model ServicesHeroSetting {
+  id               Int      @id @default(autoincrement())
+  kicker           String?  @default("OUR SERVICES")
+  titleLine1       String?  @default("Integrated Services for a")
+  titleLine2       String?  @default("Stronger")
+  titleGreen       String?  @default("Tomorrow")
+  subtitle         String?  @db.Text
+  badge1Text       String?  @default("Reliable Execution")
+  badge2Text       String?  @default("Experienced Team")
+  badge3Text       String?  @default("Sustainable Results")
+  stat1Value       String?  @default("10+")
+  stat1Label       String?  @default("Service Capabilities")
+  stat2Value       String?  @default("25+")
+  stat2Label       String?  @default("Years of Industry Support")
+  stat3Value       String?  @default("100+")
+  stat3Label       String?  @default("Projects Delivered")
+  bgImageUrl       String?  @db.Text
+  overlayImageUrl  String?  @db.Text
+  updatedAt        DateTime @updatedAt
+
+  @@map("services_hero_settings")
+}
+
+model ContactPageSetting {
+  id                     Int      @id @default(autoincrement())
+  heroKicker             String?  @default("CONTACT SECO LINE")
+  heroTitleLine1         String?  @default("Let's Build Something")
+  heroTitleLine2Green    String?  @default("Stronger Together.")
+  heroSubtitle           String?  @db.Text
+  heroBgImageUrl         String?  @db.Text
+  heroOverlayImageUrl    String?  @db.Text
+  
+  enquiryKicker          String?  @default("GET IN TOUCH")
+  enquiryTitleLine1      String?  @default("Start a Conversation About Your")
+  enquiryTitleLine2Green String?  @default("Next Project.")
+  enquiryDescription    String?  @db.Text
+  
+  generalEmail           String?  @default("info@secoline.com.sa")
+  callPhone              String?  @default("+966 12 345 6789")
+  headOfficeAddress      String?  @db.Text
+  workingArea            String?  @default("Serving projects across Saudi Arabia")
+  
+  mapKicker              String?  @default("LOCATION & HEADQUARTERS")
+  mapTitleLine1          String?  @default("Visit Our Headquarters in")
+  mapTitleLine2Green     String?  @default("Riyadh, Saudi Arabia.")
+  mapEmbedUrl            String?  @db.Text
+  directMapsUrl          String?  @db.Text
+
+  updatedAt              DateTime @updatedAt
+
+  @@map("contact_page_settings")
+}
+
+model ServiceDetailSetting {
+  id                      Int      @id @default(autoincrement())
+  serviceId               Int?     @unique
+  service                 Service? @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  
+  // 1. Hero Section
+  heroKicker              String?  @default("OUR SERVICE ☰")
+  heroSubtitle            String?  @default("Strong Foundations. A Sustainable Tomorrow.")
+  heroStat1Value          String?  @default("20+")
+  heroStat1Label          String?  @default("Years of Experience")
+  heroStat2Value          String?  @default("200+")
+  heroStat2Label          String?  @default("Projects Delivered")
+  heroStat3Value          String?  @default("100%")
+  heroStat3Label          String?  @default("Commitment to Safety")
+  heroTagline             String?  @default("BUILDING A STRONGER TOMORROW")
+
+  // 2. Overview Section
+  overviewKicker          String?  @default("OUR SERVICES")
+  overviewTitle           String?  @default("Building What")
+  overviewTitleGreen      String?  @default("Matters Most")
+  overviewDescription     String?  @db.Text
+  feature1Title           String?  @default("Safety First")
+  feature1Desc            String?  @default("A secure work environment for a better tomorrow.")
+  feature2Title           String?  @default("Experienced Teams")
+  feature2Desc            String?  @default("Skilled professionals delivering proven results.")
+  feature3Title           String?  @default("Quality & Precision")
+  feature3Desc            String?  @default("Built to last with attention to every detail.")
+  pdfDownloadUrl          String?  @default("/SECO_LINE_PROFILE.pdf")
+
+  // 3. Capabilities Section
+  capabilitiesKicker      String?  @default("KEY CAPABILITIES")
+  capabilitiesTitle1      String?  @default("Comprehensive Civil &")
+  capabilitiesTitle2Green String?  @default("Construction Solutions")
+  capabilitiesSubtitle    String?  @db.Text
+  capabilitiesJson        String?  @db.LongText
+
+  // 4. Execution Process Section
+  processKicker           String?  @default("EXECUTION METHODOLOGY")
+  processTitle1           String?  @default("Our Structured")
+  processTitle2Green      String?  @default("4-Step Execution Process")
+  processSubtitle        String?  @db.Text
+  processStepsJson        String?  @db.LongText
+
+  // 5. CTA Section
+  ctaKicker               String?  @default("START A CONVERSATION")
+  ctaTitle1               String?  @default("Ready to Execute")
+  ctaTitle2Green          String?  @default("Your Next Project?")
+  ctaDescription          String?  @db.Text
+  ctaButtonText           String?  @default("Get a Free Proposal")
+  ctaPhone                String?  @default("+966 12 345 6789")
+  ctaBadge1               String?  @default("Rapid 24h Response")
+  ctaBadge2               String?  @default("ISO & Aramco Standards")
+  ctaBadge3               String?  @default("Nationwide Saudi Execution")
+
+  updatedAt               DateTime @updatedAt
+
+  @@map("service_detail_settings")
+}
+
+model TradingService {
+  id            Int      @id @default(autoincrement())
+  slug          String   @unique
+  title         String
+  shortDesc     String?  @db.Text
+  fullDesc      String?  @db.LongText
+  iconName      String?  @default("Layers")
+  badge         String?
+  imageUrl      String?  @db.Text
+  heroBgUrl     String?  @db.Text
+  tags          String?  @db.LongText
+  features      String?  @db.LongText
+  itemsSupplied String?  @db.LongText
+  standards     String?  @db.LongText
+  industriesJson String? @db.LongText
+  whySecoJson   String?  @db.LongText
+  processJson   String?  @db.LongText
+  
+  overviewKicker String?  @default("DIVISION OVERVIEW & STRATEGIC VALUE")
+  overviewTitle  String?
+  overviewSubtitle String? @db.Text
+  overviewDesc2  String?  @db.Text
+  overviewFeaturesJson String? @db.LongText
+  pdfUrl         String?  @default("/SECO_LINE_PROFILE.pdf")
+  
+  categoriesKicker String? @default("PRODUCT / SERVICE CATEGORIES")
+  categoriesTitle  String? @default("Main Supply Classifications")
+  categoriesSubtitle String? @db.Text
+
+  sortOrder     Int      @default(0)
+  isPublished   Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  detailSetting TradingServiceDetailSetting?
+
+  @@map("trading_services")
+}
+
+model TradingServicesHeroSetting {
+  id               Int      @id @default(autoincrement())
+  badgeText        String?  @default("SAUDI ARABIA'S TIER-1 INDUSTRIAL TRADING DIVISION")
+  titleLine1       String?  @default("Certified Industrial Material")
+  titleGreen       String?  @default("& Equipment Supply")
+  subtitle         String?  @db.Text
+  badge1Text       String?  @default("100% Aramco Traceable")
+  badge2Text       String?  @default("Kingdom-Wide Fast Dispatch")
+  badge3Text       String?  @default("Tier-1 Wholesale Pricing")
+  stat1Value       String?  @default("6+")
+  stat1Label       String?  @default("Trading Divisions")
+  stat2Value       String?  @default("5,000+")
+  stat2Label       String?  @default("MTC 3.1 Certified Items")
+  stat3Value       String?  @default("24/7")
+  stat3Label       String?  @default("RFQ Fast Response")
+  bgImageUrl       String?  @db.Text
+  overlayImageUrl  String?  @db.Text
+  updatedAt        DateTime @updatedAt
+
+  @@map("trading_services_hero_settings")
+}
+
+model TradingServiceDetailSetting {
+  id                      Int             @id @default(autoincrement())
+  tradingServiceId        Int?            @unique
+  tradingService          TradingService? @relation(fields: [tradingServiceId], references: [id], onDelete: Cascade)
+
+  heroKicker              String?         @default("INDUSTRIAL MATERIAL SUPPLY ☰")
+  heroSubtitle            String?         @default("High-Grade Certified Supply for Saudi Mega Projects")
+  overviewKicker          String?         @default("DIVISION OVERVIEW & STRATEGIC VALUE")
+  overviewTitle           String?         @default("Uncompromising Quality in")
+  overviewSubtitle        String?         @db.Text
+
+  updatedAt               DateTime        @updatedAt
+
+  @@map("trading_service_detail_settings")
+}
+
+model GalleryHeroSetting {
+  id               Int      @id @default(autoincrement())
+  kicker           String?  @default("MEDIA & VISUAL GALLERY")
+  titleLine1       String?  @default("Engineering Excellence &")
+  titleGreen       String?  @default("Project Showcase")
+  subtitle         String?  @db.Text
+  badge1Text       String?  @default("High-Resolution Project Photography")
+  badge2Text       String?  @default("Aramco & SABIC Site Inspection Verification")
+  badge3Text       String?  @default("100% Certified Operational Standards")
+  bgImageUrl       String?  @db.Text
+  updatedAt        DateTime @updatedAt
+
+  @@map("gallery_hero_settings")
+}
+
+model ProjectsHeroSetting {
+  id               Int      @id @default(autoincrement())
+  kicker           String?  @default("OUR PORTFOLIO")
+  titleLine1       String?  @default("Delivered Landmark")
+  titleLine2       String?  @default("Industrial & Civil")
+  titleGreen       String?  @default("Projects")
+  subtitle         String?  @db.Text
+  badge1Text       String?  @default("Safety Excellence")
+  badge2Text       String?  @default("Aramco Certified")
+  badge3Text       String?  @default("Kingdom Logistics")
+  stat1Value       String?  @default("150+")
+  stat1Label       String?  @default("Projects Delivered")
+  stat2Value       String?  @default("100%")
+  stat2Label       String?  @default("Aramco & ISO Compliant")
+  stat3Value       String?  @default("SAR 500M+")
+  stat3Label       String?  @default("Contracting Volume")
+  bgImageUrl       String?  @db.Text
+  overlayImageUrl  String?  @db.Text
+  updatedAt        DateTime @updatedAt
+
+  @@map("projects_hero_settings")
 }

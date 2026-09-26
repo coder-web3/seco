@@ -58,7 +58,7 @@ export async function PUT(
     revalidatePath('/');
     revalidatePath('/services');
     revalidatePath(`/services/${service.slug}`);
-    revalidatePath('/admin/services');
+    revalidatePath('/seko-admin/services');
 
     return NextResponse.json({ success: true, service });
   } catch (error: any) {
@@ -83,7 +83,7 @@ export async function DELETE(
 
     revalidatePath('/');
     revalidatePath('/services');
-    revalidatePath('/admin/services');
+    revalidatePath('/seko-admin/services');
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

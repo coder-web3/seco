@@ -64,6 +64,18 @@ export default async function HomePage() {
       }))
     : undefined;
 
+  let industryCards = undefined;
+  if (homepage?.featuresSubtitle) {
+    try {
+      const parsed = JSON.parse(homepage.featuresSubtitle);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        industryCards = parsed;
+      }
+    } catch (e) {
+      console.error('Failed to parse industry cards JSON', e);
+    }
+  }
+
   return (
     <div className="space-y-4 sm:space-y-6 pb-12">
       {/* 1. Hero Section */}
@@ -75,6 +87,8 @@ export default async function HomePage() {
         primaryCtaText={homepage?.heroCtaText || 'Get a Free Quote'}
         primaryCtaLink={homepage?.heroCtaLink || '/contact'}
         bgImageUrl={homepage?.heroImageUrl || undefined}
+        personImageUrl={homepage?.personImageUrl || undefined}
+        personHoverImageUrl={homepage?.personHoverImageUrl || undefined}
       />
 
       {/* 2. About SECO LINE Section */}
@@ -124,14 +138,16 @@ export default async function HomePage() {
         bannerImageUrl={homepage?.processImageUrl || '/assets/images/about-secoline.jpg'}
       />
 
-      {/* 5. Featured Projects & Industries Section */}
+      {/* 5. Our Industries Section */}
       <ProjectsSection
-        kicker={homepage?.projectsKicker || 'FEATURED PROJECTS'}
-        titleLine1={homepage?.projectsTitleLine1 || 'Supporting Projects'}
-        titleLine2Green={homepage?.projectsTitleLine2Green || 'Across Industries'}
-        description={homepage?.projectsDescription || 'From landmark developments to essential infrastructure, SECO LINE delivers spaces that inspire growth and strengthen communities across Saudi Arabia.'}
+        kicker={homepage?.projectsKicker || 'OUR INDUSTRIES'}
+        titleLine1={homepage?.projectsTitleLine1 || 'Powering Key Industries'}
+        titleLine2Green={homepage?.projectsTitleLine2Green || 'Across Saudi Arabia'}
+        description={homepage?.projectsDescription || 'We deliver integrated solutions tailored to the unique needs of diverse industries, helping our clients build, operate and grow toward a more sustainable future.'}
+        viewAllText={homepage?.featuresTitle || 'Get In Touch'}
+        viewAllLink="/contact"
         bgImageUrl={homepage?.projectsImageUrl || '/assets/images/about-secoline.jpg'}
-        projects={formattedProjects}
+        projects={industryCards}
       />
     </div>
   );

@@ -12,13 +12,13 @@ import {
   Briefcase,
   Layers,
   Image as ImageIcon,
-  MessageSquareQuote,
   BookOpen,
   Mail,
   FolderOpen,
   Users,
   LogOut,
   ExternalLink,
+  PackageCheck,
 } from 'lucide-react';
 
 interface NavItem {
@@ -28,19 +28,19 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-  { label: 'Site Settings', href: '/admin/settings', icon: Settings },
-  { label: 'SEO Settings', href: '/admin/seo', icon: Search },
-  { label: 'Homepage', href: '/admin/homepage', icon: Home },
-  { label: 'About Page', href: '/admin/about', icon: FileText },
-  { label: 'Services', href: '/admin/services', icon: Layers },
-  { label: 'Projects', href: '/admin/projects', icon: Briefcase },
-  { label: 'Gallery', href: '/admin/gallery', icon: ImageIcon },
-  { label: 'Testimonials', href: '/admin/testimonials', icon: MessageSquareQuote },
-  { label: 'Blog Posts', href: '/admin/blog', icon: BookOpen },
-  { label: 'Contact Inquiries', href: '/admin/contacts', icon: Mail },
-  { label: 'Media Library', href: '/admin/media', icon: FolderOpen },
-  { label: 'Admin Users', href: '/admin/users', icon: Users },
+  { label: 'Dashboard', href: '/seko-admin', icon: LayoutDashboard },
+  { label: 'Site Settings', href: '/seko-admin/settings', icon: Settings },
+  { label: 'SEO Settings', href: '/seko-admin/seo', icon: Search },
+  { label: 'Homepage', href: '/seko-admin/homepage', icon: Home },
+  { label: 'About Page', href: '/seko-admin/about', icon: FileText },
+  { label: 'Contracting Services', href: '/seko-admin/services', icon: Layers },
+  { label: 'Trading Services', href: '/seko-admin/trading-services', icon: PackageCheck },
+  { label: 'Projects', href: '/seko-admin/projects', icon: Briefcase },
+  { label: 'Gallery', href: '/seko-admin/gallery', icon: ImageIcon },
+  { label: 'Blog Posts', href: '/seko-admin/blog', icon: BookOpen },
+  { label: 'Contact Inquiries', href: '/seko-admin/contacts', icon: Mail },
+  { label: 'Media Library', href: '/seko-admin/media', icon: FolderOpen },
+  { label: 'Admin Users', href: '/seko-admin/users', icon: Users },
 ];
 
 export default function AdminSidebar() {
@@ -50,7 +50,7 @@ export default function AdminSidebar() {
   const handleLogout = async () => {
     try {
       await fetch('/api/admin/auth/logout', { method: 'POST' });
-      router.push('/admin/login');
+      router.push('/seko-admin/login');
       router.refresh();
     } catch (err) {
       console.error('Logout error:', err);
@@ -59,16 +59,14 @@ export default function AdminSidebar() {
 
   return (
     <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col flex-shrink-0 border-r border-slate-800 min-h-screen">
-      {/* Brand */}
-      <div className="h-16 flex items-center justify-between px-6 border-b border-slate-800">
-        <Link href="/admin" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md shadow-indigo-600/30">
-            S
-          </div>
-          <div>
-            <span className="font-bold text-white text-base tracking-tight">SECO CMS</span>
-            <span className="text-[10px] block text-indigo-400 font-mono leading-none">MySQL Admin</span>
-          </div>
+      {/* Brand Logo Header */}
+      <div className="h-20 flex items-center justify-center px-4 bg-white border-b border-slate-200">
+        <Link href="/seko-admin" className="flex items-center justify-center w-full py-1.5">
+          <img
+            src="/uploads/1789714169770-seco---02-01-2eb82342d4daf61c.png"
+            alt="SECO LINE"
+            className="h-11 w-auto object-contain max-w-full"
+          />
         </Link>
       </div>
 
@@ -80,8 +78,8 @@ export default function AdminSidebar() {
 
         {navItems.map((item) => {
           const isActive =
-            item.href === '/admin'
-              ? pathname === '/admin'
+            item.href === '/seko-admin'
+              ? pathname === '/seko-admin'
               : pathname.startsWith(item.href);
           const Icon = item.icon;
 

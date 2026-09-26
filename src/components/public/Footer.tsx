@@ -110,21 +110,22 @@ export default function Footer({
 
               </div>
 
-              {/* Col 2: COMPANY Navigation */}
+              {/* Col 2: QUICK LINKS Navigation */}
               <div className="sm:col-span-3 space-y-4">
                 <div className="space-y-2">
-                  <h4 className="text-white text-xs font-bold uppercase tracking-[0.22em] font-heading">COMPANY</h4>
+                  <h4 className="text-white text-xs font-bold uppercase tracking-[0.22em] font-heading">QUICK LINKS</h4>
                   <div className="w-6 h-0.5 bg-[#15B83E] rounded-full" />
                 </div>
                 <ul className="space-y-3 sm:space-y-3.5 text-xs font-medium text-slate-300">
                   {[
                     { label: 'Home', href: '/' },
                     { label: 'About Us', href: '/about' },
-                    { label: 'Our Capabilities', href: '/services' },
+                    { label: 'Trading Services', href: '/trading-services' },
+                    { label: 'Contracting Services', href: '/contracting-services' },
                     { label: 'Projects', href: '/projects' },
-                    { label: 'Media Gallery', href: '/gallery' },
-                    { label: 'Careers', href: '/contact' },
-                    { label: 'Contact', href: '/contact' },
+                    { label: 'Gallery', href: '/gallery' },
+                    { label: 'Blogs', href: '/blog' },
+                    { label: 'Contact Us', href: '/contact' },
                   ].map((item, idx) => (
                     <li key={idx}>
                       <Link 
@@ -142,7 +143,7 @@ export default function Footer({
               {/* Col 3: OUR SERVICES Navigation */}
               <div className="sm:col-span-4 space-y-4">
                 <div className="space-y-2">
-                  <h4 className="text-white text-xs font-bold uppercase tracking-[0.22em] font-heading">OUR SERVICES</h4>
+                  <h4 className="text-[#15B83E] text-xs font-bold uppercase tracking-[0.22em] font-heading">OUR SERVICES</h4>
                   <div className="w-6 h-0.5 bg-[#15B83E] rounded-full" />
                 </div>
                 <ul className="space-y-3 sm:space-y-3.5 text-xs font-medium text-slate-300">
@@ -157,7 +158,7 @@ export default function Footer({
                   ].map((service, idx) => (
                     <li key={idx}>
                       <Link 
-                        href="/services" 
+                        href="/contracting-services" 
                         className="group flex items-center gap-2 text-slate-300 hover:text-white transition-colors duration-200 py-0.5"
                       >
                         <ChevronRight className="w-3.5 h-3.5 text-[#15B83E] transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0" />

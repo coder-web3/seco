@@ -9,9 +9,9 @@ const JWT_SECRET = new TextEncoder().encode(
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Only protect /admin routes
-  if (pathname.startsWith('/admin')) {
-    const isLoginPage = pathname === '/admin/login';
+  // Only protect /seko-admin routes
+  if (pathname.startsWith('/seko-admin')) {
+    const isLoginPage = pathname === '/seko-admin/login';
     const token = request.cookies.get('admin_session')?.value;
 
     let isAuthenticated = false;
@@ -26,12 +26,12 @@ export async function middleware(request: NextRequest) {
 
     // If authenticated and visiting login page, redirect to dashboard
     if (isAuthenticated && isLoginPage) {
-      return NextResponse.redirect(new URL('/admin', request.url));
+      return NextResponse.redirect(new URL('/seko-admin', request.url));
     }
 
     // If not authenticated and visiting protected admin page, redirect to login
     if (!isAuthenticated && !isLoginPage) {
-      const loginUrl = new URL('/admin/login', request.url);
+      const loginUrl = new URL('/seko-admin/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
       return NextResponse.redirect(loginUrl);
     }
@@ -41,5 +41,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
+  matcher: ['/seko-admin/:path*'],
 };

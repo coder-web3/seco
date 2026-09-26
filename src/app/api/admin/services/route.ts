@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     revalidatePath('/');
     revalidatePath('/services');
     revalidatePath(`/services/${service.slug}`);
-    revalidatePath('/admin/services');
+    revalidatePath('/seko-admin/services');
 
     return NextResponse.json({ success: true, service });
   } catch (error: any) {
