@@ -120,8 +120,6 @@ export default function Footer({
                   {[
                     { label: 'Home', href: '/' },
                     { label: 'About Us', href: '/about' },
-                    { label: 'Trading Services', href: '/trading-services' },
-                    { label: 'Contracting Services', href: '/contracting-services' },
                     { label: 'Projects', href: '/projects' },
                     { label: 'Gallery', href: '/gallery' },
                     { label: 'Blogs', href: '/blog' },
@@ -148,6 +146,7 @@ export default function Footer({
                 </div>
                 <ul className="space-y-2.5 text-xs font-medium text-slate-300">
                   {[
+                    { label: 'All Contracting Services', href: '/contracting-services' },
                     { label: 'Civil Construction & Infra', href: '/contracting-services/civil-construction-infrastructure' },
                     { label: 'Mechanical & Piping Works', href: '/contracting-services/mechanical-piping-works' },
                     { label: 'Electrical & Instrumentation', href: '/contracting-services/electrical-instrumentation-works' },
@@ -158,7 +157,9 @@ export default function Footer({
                     <li key={idx}>
                       <Link 
                         href={item.href} 
-                        className="group flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors duration-200 py-0.5 text-[11px]"
+                        className={`group flex items-center gap-1.5 transition-colors duration-200 py-0.5 text-[11px] ${
+                          idx === 0 ? 'text-[#15B83E] font-bold hover:text-white' : 'text-slate-300 hover:text-white'
+                        }`}
                       >
                         <ChevronRight className="w-3 h-3 text-[#15B83E] transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0" />
                         <span>{item.label}</span>
@@ -176,6 +177,7 @@ export default function Footer({
                 </div>
                 <ul className="space-y-2.5 text-xs font-medium text-slate-300">
                   {[
+                    { label: 'All Trading Services', href: '/trading-services' },
                     { label: 'Industrial Valves & Piping', href: '/trading-services/industrial-valves-piping' },
                     { label: 'Safety Equipment & PPE', href: '/trading-services/safety-equipment-ppe' },
                     { label: 'Tools & Hardware Supply', href: '/trading-services/tools-hardware-supply' },
@@ -186,7 +188,9 @@ export default function Footer({
                     <li key={idx}>
                       <Link 
                         href={item.href} 
-                        className="group flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors duration-200 py-0.5 text-[11px]"
+                        className={`group flex items-center gap-1.5 transition-colors duration-200 py-0.5 text-[11px] ${
+                          idx === 0 ? 'text-[#15B83E] font-bold hover:text-white' : 'text-slate-300 hover:text-white'
+                        }`}
                       >
                         <ChevronRight className="w-3 h-3 text-[#15B83E] transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0" />
                         <span>{item.label}</span>
