@@ -20,6 +20,7 @@ export async function GET() {
           generalEmail: 'info@secoline.com.sa',
           callPhone: '+966 12 345 6789',
           headOfficeAddress: 'Building No. 2341, Salahuddin Al Ayyubi Street, Al Malaz District, Riyadh 12841, Saudi Arabia',
+          rabighBranchAddress: 'Building # 6871, Office # 08, 3rd Floor, King Abdul Aziz Road, Rabigh 25753, KSA',
           workingArea: 'Serving projects across Saudi Arabia',
           mapKicker: 'LOCATION & HEADQUARTERS',
           mapTitleLine1: 'Visit Our Headquarters in',
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
       generalEmail: body.generalEmail ?? 'info@secoline.com.sa',
       callPhone: body.callPhone ?? '+966 12 345 6789',
       headOfficeAddress: body.headOfficeAddress ?? '',
+      rabighBranchAddress: body.rabighBranchAddress ?? '',
       workingArea: body.workingArea ?? 'Serving projects across Saudi Arabia',
 
       mapKicker: body.mapKicker ?? 'LOCATION & HEADQUARTERS',

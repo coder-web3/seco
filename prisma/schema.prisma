@@ -416,6 +416,7 @@ model ContactPageSetting {
   generalEmail           String?  @default("info@secoline.com.sa")
   callPhone              String?  @default("+966 12 345 6789")
   headOfficeAddress      String?  @db.Text
+  rabighBranchAddress    String?  @db.Text
   workingArea            String?  @default("Serving projects across Saudi Arabia")
   
   mapKicker              String?  @default("LOCATION & HEADQUARTERS")

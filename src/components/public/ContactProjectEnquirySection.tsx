@@ -5,7 +5,7 @@ import {
   Mail, 
   Phone, 
   MapPin, 
-  Globe, 
+  Building2, 
   ArrowRight, 
   ShieldCheck, 
   Loader2, 
@@ -21,6 +21,7 @@ interface ContactProjectEnquirySectionProps {
   email?: string;
   phone?: string;
   address?: string;
+  rabighBranchAddress?: string;
   workingArea?: string;
 }
 
@@ -32,8 +33,10 @@ export default function ContactProjectEnquirySection({
   email = 'info@secoline.com.sa',
   phone = '+966 12 345 6789',
   address = 'Building No. 2341, Salahuddin Al Ayyubi Street, Al Malaz District, Riyadh 12841, Saudi Arabia',
-  workingArea = 'Serving projects across Saudi Arabia',
+  rabighBranchAddress = 'Building # 6871, Office # 08,\n3rd Floor, King Abdul Aziz Road,\nRabigh 25753, KSA',
+  workingArea,
 }: ContactProjectEnquirySectionProps) {
+
   const [inView, setInView] = useState(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
@@ -208,7 +211,7 @@ export default function ContactProjectEnquirySection({
               </div>
             </div>
 
-            {/* 4. Working Area */}
+            {/* 4. Rabigh Branch Office */}
             <div 
               className={`group bg-white border border-slate-200/90 rounded-2xl p-4 shadow-sm hover:shadow-xl hover:border-[#15B83E]/50 hover:-translate-y-1 transition-all duration-300 flex items-center gap-4 ${
                 inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
@@ -216,14 +219,14 @@ export default function ContactProjectEnquirySection({
               style={{ transitionDelay: '450ms' }}
             >
               <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200/80 text-[#15B83E] flex items-center justify-center flex-shrink-0 group-hover:bg-[#15B83E] group-hover:text-white group-hover:shadow-[0_6px_20px_rgba(21,184,62,0.35)] group-hover:scale-110 transition-all duration-300">
-                <Globe className="w-5 h-5 transition-transform duration-700 group-hover:rotate-180" />
+                <Building2 className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
               </div>
               <div className="min-w-0">
                 <div className="text-xs font-bold text-[#0D2137] font-heading group-hover:text-[#15B83E] transition-colors">
-                  Working Area
+                  Rabigh Branch Office
                 </div>
-                <p className="text-xs sm:text-sm font-normal text-slate-600 mt-0.5">
-                  {workingArea}
+                <p className="text-xs sm:text-sm font-normal text-slate-600 leading-snug mt-0.5 whitespace-pre-line">
+                  {rabighBranchAddress}
                 </p>
               </div>
             </div>

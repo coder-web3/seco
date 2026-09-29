@@ -44,7 +44,7 @@ export default async function ContactPage() {
         email={contactPage?.generalEmail || settings?.contactEmail || 'info@secoline.com.sa'}
         phone={contactPage?.callPhone || settings?.contactPhone || '+966 12 345 6789'}
         address={contactPage?.headOfficeAddress || settings?.address || 'Building No. 2341, Salahuddin Al Ayyubi Street, Al Malaz District, Riyadh 12841, Saudi Arabia'}
-        workingArea={contactPage?.workingArea || undefined}
+        rabighBranchAddress={contactPage?.rabighBranchAddress || 'Building # 6871, Office # 08,\n3rd Floor, King Abdul Aziz Road,\nRabigh 25753, KSA'}
       />
 
       {/* 3. Google Maps iFrame Section */}

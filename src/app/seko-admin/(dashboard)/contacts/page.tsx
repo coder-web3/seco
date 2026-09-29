@@ -49,6 +49,7 @@ interface ContactPageSettingData {
   generalEmail: string;
   callPhone: string;
   headOfficeAddress: string;
+  rabighBranchAddress: string;
   workingArea: string;
 
   mapKicker: string;
@@ -87,6 +88,7 @@ export default function ContactsAdminPage() {
     generalEmail: 'info@secoline.com.sa',
     callPhone: '+966 12 345 6789',
     headOfficeAddress: 'Building No. 2341, Salahuddin Al Ayyubi Street, Al Malaz District, Riyadh 12841, Saudi Arabia',
+    rabighBranchAddress: 'Building # 6871, Office # 08, 3rd Floor, King Abdul Aziz Road, Rabigh 25753, KSA',
     workingArea: 'Serving projects across Saudi Arabia',
     mapKicker: 'LOCATION & HEADQUARTERS',
     mapTitleLine1: 'Visit Our Headquarters in',
@@ -134,6 +136,7 @@ export default function ContactsAdminPage() {
           generalEmail: data.contactPage.generalEmail || '',
           callPhone: data.contactPage.callPhone || '',
           headOfficeAddress: data.contactPage.headOfficeAddress || '',
+          rabighBranchAddress: data.contactPage.rabighBranchAddress || '',
           workingArea: data.contactPage.workingArea || '',
           mapKicker: data.contactPage.mapKicker || '',
           mapTitleLine1: data.contactPage.mapTitleLine1 || '',
@@ -658,6 +661,17 @@ export default function ContactsAdminPage() {
                 value={contentForm.headOfficeAddress}
                 onChange={(e) => setContentForm({ ...contentForm, headOfficeAddress: e.target.value })}
                 placeholder="Building No. 2341, Salahuddin Al Ayyubi Street, Al Malaz District, Riyadh 12841, Saudi Arabia"
+                className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Rabigh Branch Office Address</label>
+              <textarea
+                rows={2}
+                value={contentForm.rabighBranchAddress}
+                onChange={(e) => setContentForm({ ...contentForm, rabighBranchAddress: e.target.value })}
+                placeholder="Building # 6871, Office # 08, 3rd Floor, King Abdul Aziz Road, Rabigh 25753, KSA"
                 className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition"
               />
             </div>
