@@ -103,7 +103,7 @@ export default function Footer({
                       <Globe className="w-4 h-4" />
                     </div>
                     <a href="https://www.secoline.com.sa/" target="_blank" rel="noreferrer" className="font-medium hover:underline font-mono">
-                      www.secoline.sa
+                      www.secoline.com.sa
                     </a>
                   </div>
                 </div>
