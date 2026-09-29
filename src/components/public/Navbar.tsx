@@ -53,7 +53,7 @@ export default function Navbar({
   }
 
   const phoneDisplay = contactPhone || '+966 11 123 4567';
-  const emailDisplay = contactEmail || 'info@secoline.sa';
+  const emailDisplay = contactEmail || 'info@secoline.com.sa';
   const addressDisplay = address || 'Riyadh, Saudi Arabia';
   const hoursDisplay = workingHours || 'Sun - Thu: 8:00 AM - 5:00 PM';
 

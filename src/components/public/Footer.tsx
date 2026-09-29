@@ -19,7 +19,7 @@ interface FooterProps {
 export default function Footer({
   siteName = 'SECO LINE',
   tagline = 'Delivering reliable industrial & construction solutions for a stronger, more sustainable tomorrow across Saudi Arabia.',
-  contactEmail = 'info@secoline.sa',
+  contactEmail = 'info@secoline.com.sa',
   contactPhone = '+966 11 456 7890',
   address = 'Riyadh, Kingdom of Saudi Arabia',
   socialLinks,
@@ -102,7 +102,7 @@ export default function Footer({
                     <div className="w-8 h-8 rounded-full bg-slate-800/80 border border-slate-700/60 flex items-center justify-center text-[#15B83E] shadow-sm flex-shrink-0">
                       <Globe className="w-4 h-4" />
                     </div>
-                    <a href="https://www.secoline.sa" target="_blank" rel="noreferrer" className="font-medium hover:underline font-mono">
+                    <a href="https://www.secoline.com.sa/" target="_blank" rel="noreferrer" className="font-medium hover:underline font-mono">
                       www.secoline.sa
                     </a>
                   </div>
