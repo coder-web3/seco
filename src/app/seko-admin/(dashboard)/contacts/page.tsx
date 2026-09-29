@@ -641,39 +641,29 @@ export default function ContactsAdminPage() {
                   className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition font-mono"
                 />
               </div>
-
-              <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Working Area Label</label>
-                <input
-                  type="text"
-                  value={contentForm.workingArea}
-                  onChange={(e) => setContentForm({ ...contentForm, workingArea: e.target.value })}
-                  placeholder="Serving projects across Saudi Arabia"
-                  className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition"
-                />
-              </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Head Office Address</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Head Office Address (Riyadh)</label>
               <textarea
                 rows={2}
                 value={contentForm.headOfficeAddress}
                 onChange={(e) => setContentForm({ ...contentForm, headOfficeAddress: e.target.value })}
                 placeholder="Building No. 2341, Salahuddin Al Ayyubi Street, Al Malaz District, Riyadh 12841, Saudi Arabia"
-                className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition"
+                className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition font-mono"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Rabigh Branch Office Address</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-wider">Rabigh Branch Office Address (2 Lines)</label>
               <textarea
                 rows={2}
                 value={contentForm.rabighBranchAddress}
                 onChange={(e) => setContentForm({ ...contentForm, rabighBranchAddress: e.target.value })}
-                placeholder="Building # 6871, Office # 08, 3rd Floor, King Abdul Aziz Road, Rabigh 25753, KSA"
-                className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition"
+                placeholder="Building # 6871, Office # 08, 3rd Floor, King Abdul Aziz Road,&#10;Rabigh 25753, KSA"
+                className="w-full px-4 py-2.5 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 focus:outline-none transition font-mono"
               />
+              <p className="text-[11px] text-slate-500 mt-1">Tip: Press Enter in the box above to break the address into separate lines on the public website.</p>
             </div>
 
             <div>
